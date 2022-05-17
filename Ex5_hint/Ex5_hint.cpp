@@ -40,14 +40,14 @@ public:
 
 };
 
-class Cylinder :Solid {
+class Cone :Solid {
 private:
     double radius;
     double height;
     double busline;
  
 public:
-    Cylinder(double radius, double height,double busline) {
+    Cone(double radius, double height,double busline) {
         this->radius = radius;//半径
         this->height = height;//高さ
         this->busline = busline;//母線
@@ -59,13 +59,50 @@ public:
         return M_PI*radius*(busline+radius);
     }
 };
+class  Cylinder :Solid {
+private:
+    double rabius;//半径
+    double heught;//高さ
+public:
+    Cylinder(double rabius,double heught) {
+        this->rabius = rabius;
+        this->heught = heught;
+    }
+    double GetVolume() {
+        return rabius * rabius * M_PI * heught ;
+    }
+    double GetSurface() {
+        return 2*M_PI*rabius*(heught+rabius);
+    }
+};
+
+class Sphere :Solid {
+private:
+    double rabius;//半径
+public:
+    Sphere(double rabius) {
+        this->rabius = rabius;
+    }
+    double GetVolume() {
+        return 4/3*M_PI*rabius*rabius*rabius;
+    }
+    double GetSurface() {
+        return 4*M_PI*rabius*rabius;
+    }
+};
 
 int main()
 {
     Box box{ 3,5,2.5 };
     cout << "boxの体積=" << box.GetVolume() << endl;
     cout << "boxの表面積=" << box.GetSurface() << endl;
-    Cylinder  cylinder{ 3,2.5,5 };
-    cout << "Cylinderの体積="<<cylinder.GetVolume() << endl;
+    Cone cone{ 3,2.5,5 };
+    cout << " Coneの体積="<< cone.GetVolume() << endl;
+    cout << " Coneの表面積=" << cone.GetSurface() << endl;
+    Cylinder cylinder{ 3,2.5 };
+    cout << "Cylinderの体積=" << cylinder.GetVolume() << endl;
     cout << "Cylinderの表面積=" << cylinder.GetSurface() << endl;
+    Sphere sphere{ 3 };
+    cout << " Sphereの体積=" << sphere.GetVolume() << endl;
+    cout << " Sphereの表面積=" << sphere.GetSurface() << endl;
 }
