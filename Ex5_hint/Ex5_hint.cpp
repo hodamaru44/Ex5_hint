@@ -6,45 +6,45 @@ using namespace std;
 /// <summary>
 /// 物体の定義
 /// </summary>
-class Solid {
+template<class T> class Solid {
 public:
-    virtual double GetVolume() = 0;
-    virtual double GetSurface() = 0;
+    virtual T  GetVolume() = 0;
+    virtual T  GetSurface() = 0;
 };
 
 /// <summary>
 /// 箱型
 /// </summary>
-class Box :Solid {
+template<class T> class Box :Solid<T> {
 private:
-    double width;
-    double height;
-    double depth;
+    T width;
+    T height;
+    T depth;
 
 public:
     Box(
-        double width,   //幅
-        double height,  //高さ
-        double depth) {//奥行
+        T width,   //幅
+        T height,  //高さ
+        T depth) {//奥行
         this->width = width;
         this->height = height;
         this->depth = depth;
     }
-    double GetVolume() {
+    T  GetVolume() {
         return width * height * depth;
     }
-    double GetSurface() {
+    T GetSurface() {
         return (width * height + height * depth + depth * width) * 2;
     }
 
 
 };
 
-class Cone :Solid {
+template<class T> class Cone :Solid<T> {
 private:
-    double radius;
-    double height;
-    double busline;
+    T radius;
+    T height;
+    T busline;
  
 public:
     Cone(double radius, double height,double busline) {
@@ -52,57 +52,57 @@ public:
         this->height = height;//高さ
         this->busline = busline;//母線
     }
-    double GetVolume() {
+    T GetVolume() {
         return radius*radius* M_PI*height*1/3;
     }
-    double GetSurface() {
+    T GetSurface() {
         return M_PI*radius*(busline+radius);
     }
 };
-class  Cylinder :Solid {
+template<class T> class  Cylinder :Solid<T> {
 private:
-    double rabius;//半径
-    double heught;//高さ
+    T rabius;//半径
+    T heught;//高さ
 public:
     Cylinder(double rabius,double heught) {
         this->rabius = rabius;
         this->heught = heught;
     }
-    double GetVolume() {
+    T GetVolume() {
         return rabius * rabius * M_PI * heught ;
     }
-    double GetSurface() {
+    T GetSurface() {
         return 2*M_PI*rabius*(heught+rabius);
     }
 };
 
-class Sphere :Solid {
+template<class T> class Sphere :Solid<T> {
 private:
-    double rabius;//半径
+    T rabius;//半径
 public:
     Sphere(double rabius) {
         this->rabius = rabius;
     }
-    double GetVolume() {
+    T GetVolume() {
         return 4/3*M_PI*rabius*rabius*rabius;
     }
-    double GetSurface() {
+    T GetSurface() {
         return 4*M_PI*rabius*rabius;
     }
 };
 
 int main()
 {
-    Box box{ 3,5,2.5 };
+    Box<double> box{ 3,5,2.5 };
     cout << "boxの体積=" << box.GetVolume() << endl;
     cout << "boxの表面積=" << box.GetSurface() << endl;
-    Cone cone{ 3,2.5,5 };
+    Cone<double> cone{ 3,2.5,5 };
     cout << " Coneの体積="<< cone.GetVolume() << endl;
     cout << " Coneの表面積=" << cone.GetSurface() << endl;
-    Cylinder cylinder{ 3,2.5 };
+    Cylinder<double> cylinder{ 3,2.5 };
     cout << "Cylinderの体積=" << cylinder.GetVolume() << endl;
     cout << "Cylinderの表面積=" << cylinder.GetSurface() << endl;
-    Sphere sphere{ 3 };
+    Sphere<double> sphere{ 3 };
     cout << " Sphereの体積=" << sphere.GetVolume() << endl;
     cout << " Sphereの表面積=" << sphere.GetSurface() << endl;
 }
